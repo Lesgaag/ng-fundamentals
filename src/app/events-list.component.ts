@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { EventService } from './shared/events.service';
+import { ToastrService } from './common/toastr.service';
 
 @Component({
     // tslint:disable-next-line:component-selector
@@ -9,23 +11,25 @@ import { Component } from '@angular/core';
     <div>
         <h1>Upcoming Angular Events</h1>
         <hr/>
-        <event-thumbnail #thumbnail [event]='event1'></event-thumbnail>
+        <div class="row">
+            <div *ngFor="let event of events" class="col-md-5">
+                <event-thumbnail (click)="handleThumbnailClick(event.name)" [event]="event" ></event-thumbnail>
+            </div>
+        </div>
     </div>
     `,
 })
 export class EventsListComponent {
-    // class data can be shown with list-binder {{}} in html
-    event1 = {
-        id: 1,
-        name: 'Angular Connect',
-        date: '9/26/2036',
-        time: '10:00 am',
-        price: 599.99,
-        imageUrl: '/assets/images/angularconnect-shield.png',
-        location: {
-            address: '1057 DT',
-            city: 'London',
-            country: 'England'
-        }
-    };
+    events: any[];
+    constructor(private eventService: EventService, private toastr: ToastrService) {
+    }
+
+    // tslint:disable-next-line:use-life-cycle-interface
+    ngOnInit() {
+        this.events = this.eventService.getEvents();
+    }
+
+    handleThumbnailClick(eventName) {
+        this.toastr.success(eventName);
+    }
 }
