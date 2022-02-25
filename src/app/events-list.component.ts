@@ -3,10 +3,6 @@ import { EventService } from './shared/events.service';
 import { ToastrService } from './common/toastr.service';
 
 @Component({
-    // tslint:disable-next-line:component-selector
-    selector: 'events-list',
-    // with 'templateURL' (instead of 'temlate') possibility to add html in seperate file
-    // with 'styleURL' (instead of 'style') possibility to add css in seperate file
     template: `
     <div>
         <h1>Upcoming Angular Events</h1>
