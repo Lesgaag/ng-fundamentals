@@ -13,6 +13,7 @@ import { RouterModule } from '@angular/router';
 import { CreateEventComponent } from './create-event.components';
 import { Error404Component } from './errors/404.component';
 import { EventRouteActivator } from './event-details/event-route-activator.service';
+import { EventListResolver } from './shared/events-list-resolver.service';
 
 @NgModule({
   imports: [
@@ -31,7 +32,25 @@ import { EventRouteActivator } from './event-details/event-route-activator.servi
     Error404Component,
   ],
   // import other modules here
-  providers: [EventService, ToastrService, EventRouteActivator],
+  providers: [
+    EventService,
+    ToastrService,
+    EventRouteActivator,
+    EventListResolver,
+    {
+      provide: 'canDeactivateCreateEvent',
+      useValue: checkDirtyState
+    }
+  ],
   bootstrap: [EventsAppComponent]
 })
 export class AppModule { }
+
+// Disables all posibilities to leave the page
+export function checkDirtyState(component: CreateEventComponent) {
+  if (component.isDirty) {
+    return window.confirm('You have not saved this event, do you really want to cancel?');
+  } else {
+    return true;
+  }
+}

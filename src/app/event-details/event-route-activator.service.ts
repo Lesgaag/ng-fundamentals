@@ -2,7 +2,6 @@ import { Router, ActivatedRouteSnapshot, CanActivate } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { EventService } from '../shared/events.service';
 
-
 @Injectable()
 export class EventRouteActivator implements CanActivate {
     constructor(private eventService: EventService, private router: Router) {
@@ -13,7 +12,7 @@ export class EventRouteActivator implements CanActivate {
 
         if (!eventExists) {
             // tslint:disable-next-line:no-unused-expression
-            this.router.navigate['/404'];
+            this.router.navigate(['/404']);
         }
         return eventExists;
     }
