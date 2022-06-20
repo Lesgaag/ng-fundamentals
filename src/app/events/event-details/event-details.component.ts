@@ -14,6 +14,8 @@ import { IEvent, ISessions } from '../shared/index';
 export class EventDetailsComponent {
     event: IEvent;
     addMode: boolean;
+    filterBy: string = 'all';
+
     constructor(private eventService: EventService, private route: ActivatedRoute) {
     }
     // tslint:disable-next-line:use-life-cycle-interface
